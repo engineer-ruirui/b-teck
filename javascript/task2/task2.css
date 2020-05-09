@@ -1,0 +1,12 @@
+.form span {
+  display: inline-block;
+  width: 80px;
+}
+
+.form input{
+  width: 150px;
+}
+
+#parent p {
+  margin:0;
+}
