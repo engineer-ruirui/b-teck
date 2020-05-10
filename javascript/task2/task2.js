@@ -2,15 +2,19 @@
 const usernamePattern = /^([1-9]\d*|0)$/;
 
 function fizzBuzz() {
-  let fizzNum = document.getElementById("fizzNum").value;
-  let buzzNum = document.getElementById("buzzNum").value;
-  let parent = document.getElementById("parent");
-  let fragment = document.createDocumentFragment();
+  const fizzNum = document.getElementById("fizzNum").value;
+  const buzzNum = document.getElementById("buzzNum").value;
+  const parent = document.getElementById("parent");
+  const fragment = document.createDocumentFragment();
   
-  // 子ノードを初期化
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
+  // 子ノードを初期化（方法１）
+  parent.textContent = ''
+
+  // 子ノードを初期化（方法２）
+  // 備忘のため記載
+  // while (parent.firstChild) {
+  //   parent.removeChild(parent.firstChild);
+  // }
 
   // バリデーションチェック
   if (!(usernamePattern.test(fizzNum)) || !(usernamePattern.test(buzzNum))) {
@@ -30,6 +34,7 @@ function fizzBuzz() {
     } else if (i % buzzNum == 0) {
       child.innerText = "Buzz " + i;
     } else {
+      // 空の子ノード追加を回避
       continue;
     }
     fragment.appendChild(child);
