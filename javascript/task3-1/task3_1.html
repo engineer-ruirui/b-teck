@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript課題③-1</title>
+  <link rel="stylesheet" type="text/css" href="task3_1.css">
+  <script type="text/javascript" src="./task3_1.js"></script>
+</head>
+<body>
+  <div>
+    <h1>ToDoリスト</h1>
+    <p>
+      <input type="radio" name="status" value="all" checked="checked">すべて
+      <input type="radio" name="status" value="working">作業中
+      <input type="radio" name="status" value="finished">完了
+    </p>
+    <table id="todoList">
+      <thead>
+        <tr>
+        <td>ID</td>
+        <td>コメント</td>
+        <td>状態</td>
+        <td></td>
+        </tr>
+      </thead>
+      <tbody id="parent"></tbody>
+    </table>
+    <form action="#">
+      <h1>新規タスクの追加</h1>
+      <input type="text" id="task">
+      <input type="button" onclick="addTodo()" value="追加">
+    </form>  
+  </div>
+  <diV>
+  </diV>
+</body>
+</html>
