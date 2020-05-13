@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>JavaScript課題③-1</title>
   <link rel="stylesheet" type="text/css" href="task3_1.css">
-  <script type="text/javascript" src="./task3_1.js"></script>
 </head>
 <body>
   <div>
@@ -17,10 +16,10 @@
     <table id="todoList">
       <thead>
         <tr>
-        <td>ID</td>
-        <td>コメント</td>
-        <td>状態</td>
-        <td></td>
+          <td>ID</td>
+          <td>コメント</td>
+          <td>状態</td>
+          <td></td>
         </tr>
       </thead>
       <tbody id="parent"></tbody>
@@ -28,10 +27,11 @@
     <form action="#">
       <h1>新規タスクの追加</h1>
       <input type="text" id="task">
-      <input type="button" onclick="addTodo()" value="追加">
+      <input type="button" id="btn" value="追加">
     </form>  
   </div>
   <diV>
   </diV>
+  <script type="text/javascript" src="./task3_1.js"></script>
 </body>
 </html>
