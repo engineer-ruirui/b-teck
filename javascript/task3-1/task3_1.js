@@ -7,36 +7,36 @@ function displayTodos() {
   addTodo()
 
   // 配列の要素分子ノードを追加
-  for (var i = 0; i < todos.length; i++) {
+  for (let i = 0; i < todos.length; i++) {
     const tr = document.createElement("tr");
 
     // 連番を作成
-    const td_index = document.createElement("td");
-    const val_index = document.createTextNode(i);
-    td_index.appendChild(val_index);
-    tr.appendChild(td_index);
+    const tdIndex = document.createElement("td");
+    const valIndex = document.createTextNode(i);
+    tdIndex.appendChild(valIndex);
+    tr.appendChild(tdIndex);
 
     // コメントを作成
-    const td_task = document.createElement("td");
-    const val_task = document.createTextNode(todos[i].task);
-    td_task.appendChild(val_task);
-    tr.appendChild(td_task);
+    const tdTask = document.createElement("td");
+    const valTask = document.createTextNode(todos[i].task);
+    tdTask.appendChild(valTask);
+    tr.appendChild(tdTask);
 
     // 状態ボタンを作成
-    const td_status = document.createElement("td");
-    const td_status_input = document.createElement("input");
-    td_status_input.setAttribute("type","button");
-		td_status_input.setAttribute("value",todos[i].status);
-    td_status.appendChild(td_status_input);
-    tr.appendChild(td_status);
+    const tdStatus = document.createElement("td");
+    const tdStatusInput = document.createElement("input");
+    tdStatusInput.setAttribute("type","button");
+		tdStatusInput.setAttribute("value",todos[i].status);
+    tdStatus.appendChild(tdStatusInput);
+    tr.appendChild(tdStatus);
 
     // 削除ボタンを作成
-    const td_delete = document.createElement("td");
-    const td_delete_input = document.createElement("input");
-    td_delete_input.setAttribute("type","button");
-		td_delete_input.setAttribute("value","削除");
-    td_delete.appendChild(td_delete_input);
-    tr.appendChild(td_delete);
+    const tdDelete = document.createElement("td");
+    const tdDeleteInput = document.createElement("input");
+    tdDeleteInput.setAttribute("type","button");
+		tdDeleteInput.setAttribute("value","削除");
+    tdDelete.appendChild(tdDeleteInput);
+    tr.appendChild(tdDelete);
 
     fragment.appendChild(tr);  
   };
@@ -44,15 +44,15 @@ function displayTodos() {
 };
 
 function addTodo() {
-  const task = document.getElementById("task").value;
-  var todo = {
+  let todo = {
     task: task,
     status: '作業中'
   };
   todos.push(todo);
 };
 
-var todos = [];
+let todos = [];
 const parent = document.getElementById("parent");
-var btn = document.getElementById('btn');
+const task = document.getElementById("task").value;
+const btn = document.getElementById('btn');
 btn.addEventListener('click', displayTodos, false);
