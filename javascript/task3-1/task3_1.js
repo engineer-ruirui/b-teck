@@ -1,14 +1,28 @@
 function displayTodos() {
+  // オブジェクトを配列に追加
+  addTodo();
+  // ノードを作成
+  createNode();
+  // 入力フォームをクリア
+  document.getElementById("task").value = "";
+};
+
+function reDisplayTodos() {
+  // オブジェクトをから削除
+  deleteTodo();
+  // ノードを作成
+  createNode();
+};
+
+function createNode() {
   // 子ノードをクリア
   parent.textContent = ''
   const fragment = document.createDocumentFragment();
 
-  // オブジェクトを配列に追加
-  addTodo()
-
   // 配列の要素分子ノードを追加
   for (let i = 0; i < todos.length; i++) {
     const tr = document.createElement("tr");
+		tr.setAttribute("id", i);
 
     // 連番を作成
     const tdIndex = document.createElement("td");
@@ -35,6 +49,7 @@ function displayTodos() {
     const tdDeleteInput = document.createElement("input");
     tdDeleteInput.setAttribute("type","button");
 		tdDeleteInput.setAttribute("value","削除");
+		tdDeleteInput.setAttribute("onClick","reDisplayTodos()");
     tdDelete.appendChild(tdDeleteInput);
     tr.appendChild(tdDelete);
 
@@ -44,15 +59,20 @@ function displayTodos() {
 };
 
 function addTodo() {
-  let todo = {
-    task: task,
-    status: '作業中'
+  const taskVal = document.getElementById("task").value;
+  const todo = {
+    task: taskVal,
+    status: "作業中"
   };
   todos.push(todo);
 };
 
-let todos = [];
+function deleteTodo() {
+  const itemId = event.target.parentNode.parentNode.id;
+  todos.splice(itemId,1);
+};
+
+const todos = [];
 const parent = document.getElementById("parent");
-const task = document.getElementById("task").value;
-const btn = document.getElementById('btn');
-btn.addEventListener('click', displayTodos, false);
+const btn = document.getElementById("btn");
+btn.addEventListener("click", displayTodos, false);
