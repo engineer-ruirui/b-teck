@@ -3,10 +3,12 @@ function displayTodos() {
   addTodo();
   // ノードを作成
   createNode();
+  // 入力フォームをクリア
+  document.getElementById("task").value = "";
 };
 
-function redisplayTodos() {
-  // オブジェクトを配列に追加
+function reDisplayTodos() {
+  // オブジェクトをから削除
   deleteTodo();
   // ノードを作成
   createNode();
@@ -47,7 +49,7 @@ function createNode() {
     const tdDeleteInput = document.createElement("input");
     tdDeleteInput.setAttribute("type","button");
 		tdDeleteInput.setAttribute("value","削除");
-		tdDeleteInput.setAttribute("onClick","redisplayTodos()");
+		tdDeleteInput.setAttribute("onClick","reDisplayTodos()");
     tdDelete.appendChild(tdDeleteInput);
     tr.appendChild(tdDelete);
 
@@ -60,7 +62,7 @@ function addTodo() {
   const taskVal = document.getElementById("task").value;
   const todo = {
     task: taskVal,
-    status: '作業中'
+    status: "作業中"
   };
   todos.push(todo);
 };
@@ -72,5 +74,5 @@ function deleteTodo() {
 
 const todos = [];
 const parent = document.getElementById("parent");
-const btn = document.getElementById('btn');
-btn.addEventListener('click', displayTodos, false);
+const btn = document.getElementById("btn");
+btn.addEventListener("click", displayTodos, false);
