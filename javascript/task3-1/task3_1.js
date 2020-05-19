@@ -1,17 +1,26 @@
-function displayTodos() {
-  // オブジェクトを配列に追加
-  addTodo();
-  // ノードを初期化
-  initializeNode();
-  // 入力フォームをクリア
-  document.getElementById("task").value = "";
+function addTodo() {
+  // タスクの追加
+  const taskVal = document.getElementById("task").value;
+  const todo = {
+    task: taskVal,
+    status: "作業中"
+  };
+  todos.push(todo);
+  // 画面表示
+  displayTodos(todo);
 };
 
-function initializeNode() {
+function deleteTodo(index) {
+  // 指定の要素を削除
+  todos.splice(index,1);
+  // 画面表示
+  displayTodos();
+};
+
+function displayTodos() {
   // 子ノードをクリア
   parent.textContent = ''
   const fragment = document.createDocumentFragment();
-
   // 配列の要素分子ノードを追加
   for (let i = 0; i < todos.length; i++) {
     const tr = document.createElement("tr");
@@ -28,40 +37,12 @@ function initializeNode() {
     // 状態ボタンを作成
     tr.appendChild(createStatusButton(i));
     // 削除ボタンを作成
-    tr.appendChild(createDeleteButton());
+    tr.appendChild(createDeleteButton(i));
     fragment.appendChild(tr);  
   };
   parent.appendChild(fragment);
-  // 削除イベントを登録
-  registerDeleteEvent();
-};
-
-function addTodo() {
-  const taskVal = document.getElementById("task").value;
-  const todo = {
-    task: taskVal,
-    status: "作業中"
-  };
-  todos.push(todo);
-};
-
-function deleteTodo() {
-  // 指定の要素を削除
-  todos.splice(deleteIndex,1);
-  // ノードを初期化
-  initializeNode();
-};
-
-function registerDeleteEvent() {
-  const elms = document.querySelectorAll(".deleteBtn");
-  // クリックイベントをトリガーにインデックスを取得
-  elms.forEach((elm) => {
-    elm.addEventListener("click", () => {
-      // 対象要素のインデックスを取得
-      deleteIndex = [].slice.call(elms).indexOf(elm);
-      deleteTodo();
-    });
-  });
+  // 入力フォームをクリア
+  document.getElementById("task").value = "";
 };
 
 function createStatusButton(index) {
@@ -73,19 +54,21 @@ function createStatusButton(index) {
   return tdStatus;
 };
 
-function createDeleteButton() {
+function createDeleteButton(index) {
   const tdDelete = document.createElement("td");
   const tdDeleteInput = document.createElement("input");
   tdDeleteInput.setAttribute("type","button");
   tdDeleteInput.setAttribute("value","削除");
   tdDeleteInput.setAttribute("class","deleteBtn");
   tdDelete.appendChild(tdDeleteInput);
+  // クリックイベントを設定
+  tdDeleteInput.addEventListener("click", () => {
+    deleteTodo(index);
+  });
   return tdDelete;
 }
 
 const todos = [];
 const parent = document.getElementById("parent");
 const btn = document.getElementById("btn");
-btn.addEventListener("click", displayTodos, false);
-// クリックした要素のインデックスを格納する変数
-let deleteIndex;
+btn.addEventListener("click", addTodo, false);
