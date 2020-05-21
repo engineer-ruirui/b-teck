@@ -22,7 +22,7 @@ function displayTodos() {
   parent.textContent = ''
   const fragment = document.createDocumentFragment();
   // 配列の要素分子ノードを追加
-  for (let i = 0; i < todos.length; i++) {
+  todos.forEach((todo, i)=>{
     const tr = document.createElement("tr");
     // 連番を作成
     const tdIndex = document.createElement("td");
@@ -35,11 +35,13 @@ function displayTodos() {
     tdTask.appendChild(valTask);
     tr.appendChild(tdTask);
     // 状態ボタンを作成
-    tr.appendChild(createStatusButton(i));
+    const statusButton = createStatusButton(i);
+    tr.appendChild(statusButton);
     // 削除ボタンを作成
-    tr.appendChild(createDeleteButton(i));
+    const deleteButton = createDeleteButton(i);
+    tr.appendChild(deleteButton);
     fragment.appendChild(tr);  
-  };
+  })
   parent.appendChild(fragment);
   // 入力フォームをクリア
   document.getElementById("task").value = "";
