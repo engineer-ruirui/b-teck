@@ -1,9 +1,12 @@
+const WORKING = "作業中";
+const COMPLETE = "完了";
+
 function addTodo() {
   // タスクの追加
   const taskVal = document.getElementById("task").value;
   const todo = {
     task: taskVal,
-    status: "作業中"
+    status: WORKING
   };
   todos.push(todo);
   // 画面表示
@@ -16,6 +19,17 @@ function deleteTodo(index) {
   // 画面表示
   displayTodos();
 };
+
+function updateTodo(index) {
+  const status = todos[index].status;
+  if (status === WORKING) {
+    todos[index].status = COMPLETE;
+  } else if (status === COMPLETE) {
+    todos[index].status = WORKING;
+  }
+  // 画面表示
+  displayTodos();
+}
 
 function displayTodos() {
   // 子ノードをクリア
@@ -53,6 +67,10 @@ function createStatusButton(index) {
   tdStatusInput.setAttribute("type","button");
   tdStatusInput.setAttribute("value",todos[index].status);
   tdStatus.appendChild(tdStatusInput);
+  // クリックイベントを設定
+  tdStatusInput.addEventListener("click", () => {
+    updateTodo(index);
+  });  
   return tdStatus;
 };
 
