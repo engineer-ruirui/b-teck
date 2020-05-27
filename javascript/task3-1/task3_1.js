@@ -1,7 +1,3 @@
-// const STATUS = {
-//   working: "作業中",
-//   complete: "完了"
-// };
 const WORKING_JP = "作業中";
 const COMPLETE_JP = "完了";
 const WORKING_EN = "working";
