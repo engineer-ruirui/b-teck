@@ -1,12 +1,18 @@
-const WORKING = "作業中";
-const COMPLETE = "完了";
+// const STATUS = {
+//   working: "作業中",
+//   complete: "完了"
+// };
+const WORKING_JP = "作業中";
+const COMPLETE_JP = "完了";
+const WORKING_EN = "working";
+const COMPLETE_EN = "complete";
 
 function addTodo() {
   // タスクの追加
   const taskVal = document.getElementById("task").value;
   const todo = {
     task: taskVal,
-    status: WORKING
+    status: WORKING_JP
   };
   todos.push(todo);
   // 画面表示
@@ -22,21 +28,32 @@ function deleteTodo(index) {
 
 function updateTodo(index) {
   const status = todos[index].status;
-  if (status === WORKING) {
-    todos[index].status = COMPLETE;
-  } else if (status === COMPLETE) {
-    todos[index].status = WORKING;
+  if (status === WORKING_JP) {
+    todos[index].status = COMPLETE_JP;
+  } else if (status === COMPLETE_JP) {
+    todos[index].status = WORKING_JP;
   }
   // 画面表示
   displayTodos();
 }
 
 function displayTodos() {
+  // ラジオボタンのチェック状態を取得
+  const checkStatus = getCheckStatus();
   // 子ノードをクリア
   parent.textContent = ''
   const fragment = document.createDocumentFragment();
   // 配列の要素分子ノードを追加
   todos.forEach((todo, i)=>{
+    if (checkStatus == WORKING_EN) {
+      if (todo.status !== WORKING_JP) {
+        return;
+      }
+    } else if (checkStatus == COMPLETE_EN) {
+      if (todo.status !== COMPLETE_JP) {
+        return;
+      }
+    }
     const tr = document.createElement("tr");
     // 連番を作成
     const tdIndex = document.createElement("td");
@@ -45,7 +62,7 @@ function displayTodos() {
     tr.appendChild(tdIndex);
     // コメントを作成
     const tdTask = document.createElement("td");
-    const valTask = document.createTextNode(todos[i].task);
+    const valTask = document.createTextNode(todo.task);
     tdTask.appendChild(valTask);
     tr.appendChild(tdTask);
     // 状態ボタンを作成
@@ -86,6 +103,15 @@ function createDeleteButton(index) {
     deleteTodo(index);
   });
   return tdDelete;
+}
+
+function getCheckStatus() {
+  const elements = document.getElementsByName("status");
+  for(let i = 0; i <elements.length; i++){
+    if (elements[i].checked) {
+      return elements[i].value;
+    }
+  }
 }
 
 const todos = [];
