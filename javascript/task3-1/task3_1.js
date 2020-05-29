@@ -1,12 +1,14 @@
-const WORKING = "作業中";
-const COMPLETE = "完了";
+const WORKING_JP = "作業中";
+const COMPLETE_JP = "完了";
+const WORKING_EN = "working";
+const COMPLETE_EN = "complete";
 
 function addTodo() {
   // タスクの追加
   const taskVal = document.getElementById("task").value;
   const todo = {
     task: taskVal,
-    status: WORKING
+    status: WORKING_JP
   };
   todos.push(todo);
   // 画面表示
@@ -22,10 +24,10 @@ function deleteTodo(index) {
 
 function updateTodo(index) {
   const status = todos[index].status;
-  if (status === WORKING) {
-    todos[index].status = COMPLETE;
-  } else if (status === COMPLETE) {
-    todos[index].status = WORKING;
+  if (status === WORKING_JP) {
+    todos[index].status = COMPLETE_JP;
+  } else if (status === COMPLETE_JP) {
+    todos[index].status = WORKING_JP;
   }
   // 画面表示
   displayTodos();
@@ -37,6 +39,15 @@ function displayTodos() {
   const fragment = document.createDocumentFragment();
   // 配列の要素分子ノードを追加
   todos.forEach((todo, i)=>{
+    if (radioStatus == WORKING_EN) {
+      if (todo.status !== WORKING_JP) {
+        return;
+      }
+    } else if (radioStatus == COMPLETE_EN) {
+      if (todo.status !== COMPLETE_JP) {
+        return;
+      }
+    }
     const tr = document.createElement("tr");
     // 連番を作成
     const tdIndex = document.createElement("td");
@@ -45,7 +56,7 @@ function displayTodos() {
     tr.appendChild(tdIndex);
     // コメントを作成
     const tdTask = document.createElement("td");
-    const valTask = document.createTextNode(todos[i].task);
+    const valTask = document.createTextNode(todo.task);
     tdTask.appendChild(valTask);
     tr.appendChild(tdTask);
     // 状態ボタンを作成
@@ -92,3 +103,15 @@ const todos = [];
 const parent = document.getElementById("parent");
 const btn = document.getElementById("btn");
 btn.addEventListener("click", addTodo, false);
+
+// ラジオボタンのチェック状態を格納
+let radioStatus = "all";
+
+// ラジオボタンのチェックイベントを登録
+const input = document.getElementsByName("status");
+input.forEach(function(e) {
+  e.addEventListener("change", function(element) {    
+    radioStatus = element.srcElement.value;
+    displayTodos()
+  });
+});
