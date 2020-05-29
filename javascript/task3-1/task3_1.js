@@ -34,18 +34,16 @@ function updateTodo(index) {
 }
 
 function displayTodos() {
-  // ラジオボタンのチェック状態を取得
-  const checkStatus = getCheckStatus();
   // 子ノードをクリア
   parent.textContent = ''
   const fragment = document.createDocumentFragment();
   // 配列の要素分子ノードを追加
   todos.forEach((todo, i)=>{
-    if (checkStatus == WORKING_EN) {
+    if (radioStatus == WORKING_EN) {
       if (todo.status !== WORKING_JP) {
         return;
       }
-    } else if (checkStatus == COMPLETE_EN) {
+    } else if (radioStatus == COMPLETE_EN) {
       if (todo.status !== COMPLETE_JP) {
         return;
       }
@@ -101,16 +99,19 @@ function createDeleteButton(index) {
   return tdDelete;
 }
 
-function getCheckStatus() {
-  const elements = document.getElementsByName("status");
-  for(let i = 0; i <elements.length; i++){
-    if (elements[i].checked) {
-      return elements[i].value;
-    }
-  }
-}
-
 const todos = [];
 const parent = document.getElementById("parent");
 const btn = document.getElementById("btn");
 btn.addEventListener("click", addTodo, false);
+
+// ラジオボタンのチェック状態を格納
+let radioStatus = "all";
+
+// ラジオボタンのチェックイベントを登録
+const input = document.getElementsByName("status");
+input.forEach(function(e) {
+  e.addEventListener("change", function(element) {    
+    radioStatus = element.srcElement.value;
+    displayTodos()
+  });
+});
